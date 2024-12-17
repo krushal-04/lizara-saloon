@@ -17,11 +17,11 @@ const getAllItems = async (req, res, next) => {
 
 const createItem = async (req, res, next) => {
     console.log(req.body);
-    const {name, price , is_active , desc, Category_name } = req.body;
+    const {image,name, price , is_active , desc, Category_name ,rating} = req.body;
 
     
 
-    const Items1 = new items({ name, price , is_active , desc, Category_name });
+    const Items1 = new items({ image,name, price , is_active , desc, Category_name,rating });
 
     try {
         await Items1.save();

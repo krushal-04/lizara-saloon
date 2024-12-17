@@ -2,6 +2,10 @@ const  mongoose =require("mongoose");
 const Schema=mongoose.Schema;
 
 const ItemSchema= new Schema({
+    image:{
+        type:String,
+    },
+    
     name:{
         type:String,
         required: true,
@@ -19,6 +23,12 @@ const ItemSchema= new Schema({
         type:String,
         required: true,
         
+    },
+    image:{
+        type:String,
+    },
+    rating:{
+     type:Number,
     },
     Category_name:{
         type:String,

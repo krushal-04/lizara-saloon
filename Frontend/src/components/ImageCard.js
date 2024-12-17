@@ -125,14 +125,22 @@ export default function ImageCards() {
         <Grid container spacing={3} justifyContent="center" maxWidth={1800}>
           {cards.map((card) => (
             <Grid item xs={12} sm={6} md={3} key={card.id}>
-              <Card sx={{ maxWidth: 345, margin: '0 auto', borderRadius: "30px", }}>
+              <Card sx={{
+                   maxWidth: 345,
+                  margin: '0 auto',
+                  borderRadius: "30px",
+                  // display: 'flex',
+                  // flexDirection: 'column',
+                  height: "100%",
+                 
+                }}>
                 <CardMedia
 
                   component="img"
                   alt={card.alt}
                   image={card.image}
                   sx={{
-                    height: 400,
+                    height: 300,
                     objectFit: '-moz-initial',
                   }}
                 />
@@ -144,10 +152,10 @@ export default function ImageCards() {
                     {card.description}
                   </Typography>
                 </CardContent>
-                <CardActions>
+                {/* <CardActions>
                   <Button size="small">Share</Button>
                   <Button size="small">Learn More</Button>
-                </CardActions>
+                </CardActions> */}
               </Card>
             </Grid>
           ))}

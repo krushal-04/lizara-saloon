@@ -3,47 +3,59 @@ import {Card,CardContent,CardMedia,Typography,Button,CardActionArea,CardActions,
 
 
 export default function ProductCard({ product }) {
-
+    // console.log(product)
     return (
         <Card sx={{
-            height: "100%",
+            justifyContent:"space-between",
+           boxShadow:3,
+            borderRadius: "10px",
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'space-between',
-            boxShadow: 3,
-            borderRadius: '10px',
-        }}>
+            height: '100%',
+          }}>
             <CardActionArea>
                 <CardMedia
                     component="img"
                     image={product.image}
                     alt={product.name}
                     sx={{
-                        height: 400,
-                        objectFit: 'cover',
+                         height: 300,
+                        objectFit: '-moz-initial',
                         borderRadius: '10px 10px 0 0',
+                    //     height: 300,
+                    // objectFit: '-moz-initial',
                     }}
                 />
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                   <center> <Typography gutterBottom variant="h5" component="div">
                         {product.name}
-                    </Typography>
-                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                        {product.description}
+                    </Typography></center><br></br>
+                    <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+                       {product.desc}
                     </Typography>
                     <Typography variant="h6" color="text.primary">
-                        {product.price}
+                    Price:  ₹{product.price}
                     </Typography>
-                    <Rating value={product.rating} readOnly precision={0.5} />
+                    {/* <Typography variant="h6" color="text.primary">
+                        {product.Category_name}
+                    </Typography> */}
+                    <Rating value={product?.rating} readOnly precision={0.5} />
                 </CardContent>
             </CardActionArea>
             <CardActions sx={{ justifyContent: "center", pb: 2 }}>
                 <Button
                     size="medium"
                     variant="contained"
-                    sx={{ backgroundColor: 'primary.main', color: 'white' }}
+                    sx={{ backgroundColor: 'primary.main', color: 'white',height: 30,width: "45%" }}
                 >
                     Add to Cart
+                </Button>
+                <Button
+                    size="medium"
+                    variant="contained"
+                    sx={{ backgroundColor: 'primary.main', color: 'white',height: 30,width: "45%" }}
+                >
+                    Buy Now
                 </Button>
             </CardActions>
         </Card>
