@@ -15,7 +15,7 @@ import ContentCutIcon from '@mui/icons-material/ContentCut';
 import { Link } from "react-router-dom";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile', 'Account', 'Login', 'Logout'];
 
 function ResponsiveAppBar({ logo }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
