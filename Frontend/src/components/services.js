@@ -1,98 +1,140 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import React, { useState } from "react";
+import {
+  Grid,
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  Avatar,
+  TextField,
+  Box,
+  ToggleButton,
+  ToggleButtonGroup,
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 
-const drawerWidth = 50;
+const menServices = [
+  { title: "Packages", icon: "📦" },
+  { title: "Haircut & Beard Styling", icon: "✂⃣" },
+  { title: "Massage", icon: "💆‍♂⃣" },
+  { title: "Detan", icon: "🧖" },
+];
 
- function Services() {
+const womenServices = [
+  { title: "Manicure & Pedicure", icon: "💅" },
+  { title: "Hair Color", icon: "🎨" },
+  { title: "Facial & Cleanup", icon: "🧴" },
+  { title: "Massage", icon: "💆‍♀⃣" },
+];
+
+const menPackages = [
+  {
+    title: "Grooming Essentials",
+    price: "₹557",
+    duration: "1 hr 55 mins",
+    details: "Haircut, Beard Grooming, Head Massage",
+  },
+];
+
+const womenPackages = [
+  {
+    title: "Cut & Color",
+    price: "₹508",
+    duration: "1 hr",
+    details: "Haircut & Hair Color",
+  },
+];
+
+const Services = () => {
+  const [gender, setGender] = useState("men");
+
+  const handleGenderChange = (event, newGender) => {
+    if (newGender) setGender(newGender);
+  };
+
+  const services = gender === "men" ? menServices : womenServices;
+  const packages = gender === "men" ? menPackages : womenPackages;
+
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-        <Drawer
-        sx={{
-          padding:"300px",
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-          },
-        }}
-        variant="permanent"
-        anchor="left"
-      >
-        <Divider />
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-      <Box
-        component="main"
-        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
-      >
-        <Toolbar />
-        <Typography sx={{ marginBottom: 2 }}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-          enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-          imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-          Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-          Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-          nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-          leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-          feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-          consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-          sapien faucibus et molestie ac.
-        </Typography>
-        <Typography sx={{ marginBottom: 2 }}>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-          eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-          neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-          tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-          sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-          tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-          gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-          et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-          tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+    <Box sx={{ padding: 4 }}>
+      {/* Header with Search */}
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
+        <TextField
+          variant="outlined"
+          placeholder="Search "
+          size="small"
+          InputProps={{ startAdornment: <SearchIcon /> }}
+        />
+        <ToggleButtonGroup
+          value={gender}
+          exclusive
+          onChange={handleGenderChange}
+          aria-label="gender selection"
+        >
+          <ToggleButton value="men">Men</ToggleButton>
+          <ToggleButton value="women">Women</ToggleButton>
+        </ToggleButtonGroup>
       </Box>
+
+      {/* Main Layout */}
+      <Grid container spacing={4}>
+        {/* Services */}
+        <Grid item xs={12} md={6}>
+          <Typography variant="h6" mb={2} fontWeight="bold">
+            {gender === "men" ? "Men's Services" : "Women's Services"}
+          </Typography>
+          <Box>
+            {services.map((service) => (
+              <Card
+                key={service.title}
+                variant="outlined"
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  padding: 2,
+                  marginBottom: 2,
+                  cursor: "pointer",
+                  ":hover": { boxShadow: 3 },
+                }}
+              >
+                <Avatar sx={{ bgcolor: "primary.light", marginRight: 2 }}>
+                  {service.icon}
+                </Avatar>
+                <Typography variant="body1">{service.title}</Typography>
+              </Card>
+            ))}
+          </Box>
+        </Grid>
+
+        {/* Packages */}
+        <Grid item xs={12} md={6}>
+          <Typography variant="h6" mb={2} fontWeight="bold">
+            {gender === "men" ? "Men's Packages" : "Women's Packages"}
+          </Typography>
+          <Box>
+            {packages.map((pkg) => (
+              <Card key={pkg.title} variant="outlined" sx={{ marginBottom: 2 }}>
+                <CardContent>
+                  <Typography variant="h6" fontWeight="bold">
+                    {pkg.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {pkg.details}
+                  </Typography>
+                  <Typography variant="body1" mt={1} fontWeight="bold">
+                    {pkg.price} • {pkg.duration}
+                  </Typography>
+                  <Button variant="contained" size="small" sx={{ mt: 2 }}>
+                    Add
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </Box>
+        </Grid>
+      </Grid>
     </Box>
   );
-}
+};
+
 export default Services;

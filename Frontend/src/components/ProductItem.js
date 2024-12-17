@@ -5,6 +5,7 @@ import {Card,CardContent,CardMedia,Typography,Button,CardActionArea,CardActions,
 export default function ProductCard({ product }) {
 
     return (
+        
         <Card sx={{
             height: "100%",
             display: 'flex',
@@ -20,7 +21,7 @@ export default function ProductCard({ product }) {
                     alt={product.name}
                     sx={{
                         height: 400,
-                        objectFit: 'cover',
+                        objectFit: '-moz-initial',
                         borderRadius: '10px 10px 0 0',
                     }}
                 />
@@ -38,10 +39,17 @@ export default function ProductCard({ product }) {
                 </CardContent>
             </CardActionArea>
             <CardActions sx={{ justifyContent: "center", pb: 2 }}>
+            <Button
+                    size="medium"
+                    variant="contained"
+                    sx={{ backgroundColor: 'primary.main', color: 'white', width:"45%" }}
+                >
+                    Buy Now
+                </Button>
                 <Button
                     size="medium"
                     variant="contained"
-                    sx={{ backgroundColor: 'primary.main', color: 'white' }}
+                    sx={{ backgroundColor: 'primary.main', color: 'white', width:"45%" }}
                 >
                     Add to Cart
                 </Button>
