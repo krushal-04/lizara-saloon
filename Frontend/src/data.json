@@ -1,0 +1,18 @@
+{
+    "autoSliding": {
+        "items": [
+            {
+                "imgSrc": "/images/hair.jpg"
+            },
+            {
+                "imgSrc": "/images/card2.jfif"
+            },
+            {
+                "imgSrc": "/images/hair.jpg"
+            },
+            {
+                "imgSrc": "/images/card2.jpg"
+            }
+        ]
+    }
+}

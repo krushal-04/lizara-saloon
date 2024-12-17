@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="referrer" content="origin-when-cross-origin">
+    <script>//<![CDATA[
+      var s = false;
+      function l() {
+        setTimeout(f, 10000);
+        if (document.referrer) {
+          try {
+            var pm = /(^|&|\?)px=([^&]*)(&|$)/i;
+            var px = window.location.href.match(pm);
+            var rs = document.referrer;
+            if (px != null) {
+              if (rs.match(pm))
+                rs = rs.replace(pm, "$1px=" + px[2] + "$3");
+              else if (rs.indexOf("?") != -1)
+                rs = rs + "&px=" + px[2];
+              else
+                rs = rs + "?px=" + px[2];
+            }
+            history.replaceState({}, "Bing", rs);
+            window.addEventListener("pageshow", function(e) { if (e.persisted || (typeof window.performance != "undefined" && window.performance.navigation.type === 2)) window.location.reload(); });
+            s = true;
+            setTimeout(r, 10);
+            return;
+          } catch (e) {}
+        }
+        r();
+      }
+      function r() {
+        var u = "https://www.nykaaman.com/vega-professional-pro-barber-hair-clipper-vpvhc-09/p/9304907?ptype=product&skuId=9304907&utm_content=ads&utm_source=MicrosoftAds&utm_medium=SSC&utm_campaign=MS_SSC_Grooming_111124";
+        if (s)
+          window.location.href = u;
+        else
+          window.location.replace(u);
+      }
+      function f() {
+        document.getElementById("fb").style.display = "block";
+      }
+      //]]>
+    </script>
+  </head>
+  <body onload="l()">
+    <div id="fb" style="display: none">
+      Please <a href="https://www.bing.com:443/aclick?ld=e8-Ldh8pygYB53QYzUR9xAyDVUCUz2Ca_z0Q-PcGQ_Cw0JhYpWRKLWlXPN5mce48QfptdzyWz5d-GBPaPxJK3UDFIr1Zh2YHUuU5NoYFL4H5P2-KKHttvHbq43xeQKEQVboBfWqm8bdffi2yN-vQZY8SyWLYi_1WiPIGyOoVcQKC6HwfFFOg7k4kns441BUdGfrXy7CQ&amp;u=aHR0cHMlM2ElMmYlMmZ3d3cubnlrYWFtYW4uY29tJTJmdmVnYS1wcm9mZXNzaW9uYWwtcHJvLWJhcmJlci1oYWlyLWNsaXBwZXItdnB2aGMtMDklMmZwJTJmOTMwNDkwNyUzZnB0eXBlJTNkcHJvZHVjdCUyNnNrdUlkJTNkOTMwNDkwNyUyNnV0bV9jb250ZW50JTNkYWRzJTI2dXRtX3NvdXJjZSUzZE1pY3Jvc29mdEFkcyUyNnV0bV9tZWRpdW0lM2RTU0MlMjZ1dG1fY2FtcGFpZ24lM2RNU19TU0NfR3Jvb21pbmdfMTExMTI0&amp;rlid=de9ea722cd931d814096c0785e0bc332&amp;ntb=F">click here</a> if the page does not redirect automatically ...
+    </div>
+  </body>
+</html>
