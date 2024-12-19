@@ -4,7 +4,7 @@ import { Box, CardContent } from '@mui/material';
 import Carousel from './Carousel';
 const Home = () => {
   return (
-    <div style={{ backgroundColor: "black" }}>
+    <div style={{ backgroundColor: "white" }}>
       <Carousel />
       <Box mt={3} width="100%">
         <CardContent>

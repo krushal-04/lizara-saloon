@@ -5,7 +5,6 @@ import "./AutoPlay.css";
 function AutoPlay() {
   const settings = {
     dots: true,
-
     infinite: true,
     slidesToShow: 4,
     slidesToScroll: 1,
@@ -13,7 +12,29 @@ function AutoPlay() {
     speed: 2000,
     autoplaySpeed: 2000,
     pauseOnHover: false,
-
+    responsive: [
+      {
+        breakpoint: 1024, // For tablets and smaller desktops
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768, // For mobile devices (landscape)
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 480, // For small mobile devices (portrait)
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import {Card,CardContent,CardMedia,Typography,Button,CardActionArea,CardActions,Rating} from '@mui/material';
 
 
@@ -15,22 +16,19 @@ export default function ProductCard({ product }) {
             height: '100%',
           }}>
             <CardActionArea>
+            <Link to={`/product/${product.id}`} style={{ textDecoration: "none" }}>
                 <CardMedia
                     component="img"
                     image={product.image}
                     alt={product.name}
                     sx={{
-<<<<<<< HEAD
-                         height: 300,
-=======
-                        height: 400,
->>>>>>> faf845b2df1c1714641336a5e9505c691b97e013
+                         height: 400,
                         objectFit: '-moz-initial',
                         borderRadius: '10px 10px 0 0',
-                    //     height: 300,
-                    // objectFit: '-moz-initial',
+                 
                     }}
                 />
+                </Link>
                 <CardContent>
                    <center> <Typography gutterBottom variant="h5" component="div">
                         {product.name}
@@ -39,7 +37,7 @@ export default function ProductCard({ product }) {
                        {product.desc}
                     </Typography>
                     <Typography variant="h6" color="text.primary">
-                    Price:  ₹{product.price}
+                    Price:  {product.price}
                     </Typography>
                     {/* <Typography variant="h6" color="text.primary">
                         {product.Category_name}
@@ -51,28 +49,18 @@ export default function ProductCard({ product }) {
             <Button
                     size="medium"
                     variant="contained"
-                    sx={{ backgroundColor: 'primary.main', color: 'white', width:"45%" }}
+                    sx={{ backgroundColor: 'primary.main',  width:"45%" }}
                 >
                     Buy Now
                 </Button>
                 <Button
                     size="medium"
                     variant="contained"
-<<<<<<< HEAD
-                    sx={{ backgroundColor: 'primary.main', color: 'white',height: 30,width: "45%" }}
-=======
-                    sx={{ backgroundColor: 'primary.main', color: 'white', width:"45%" }}
->>>>>>> faf845b2df1c1714641336a5e9505c691b97e013
+                    sx={{ backgroundColor: 'primary.main',width: "45%" }}
                 >
                     Add to Cart
                 </Button>
-                <Button
-                    size="medium"
-                    variant="contained"
-                    sx={{ backgroundColor: 'primary.main', color: 'white',height: 30,width: "45%" }}
-                >
-                    Buy Now
-                </Button>
+               
             </CardActions>
         </Card>
     );
