@@ -17,22 +17,15 @@ const ServiceCat_Schema= new Schema({
     },
     image:{
         type:String,
-        required: true,
+        
         
     },
-    user_id:{
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-    },
+    desc:{
+        type:String,
+    }
     
-    item_id:{
-    type: Schema.Types.ObjectId,
-    ref: 'Item',
-    required: true,
-},
         
        
 })
 
-module.exports=mongoose.model("Booking",bookingSchema );
+module.exports=mongoose.model("Service_Category", ServiceCat_Schema);

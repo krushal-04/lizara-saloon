@@ -1,38 +1,33 @@
 const  mongoose =require("mongoose");
-const Item=require("./items")
-const User=require("./user")
+
+const Service_Category = require("./Service_Category");
 
 
 const Schema=mongoose.Schema;
 
-const bookingSchema= new Schema({
+const ServiceSchema= new Schema({
     name:{
         type:String,
         required: true,
     },
     
-    Bookdate_from:{
-        type:Date,
-        required: true,
-        
-    },
-    Bookdate_to:{
-        type:Date,
-        required: true,
-        
-    },
-    user_id:{
-        type: Schema.Types.ObjectId,
-        ref: 'User',
+    Service_Category:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'Service_Category',
         required: true,
     },
-    item_id:{
-    type: Schema.Types.ObjectId,
-    ref: 'Item',
-    required: true,
-},
-        
+    price:{
+        type:Number,
+        required: true,
+        },
+      image:{
+        type:String,
+        required: true,
+      } ,
+      description:{
+        type:String,
+      },        
        
 })
 
-module.exports=mongoose.model("Booking",bookingSchema );
+module.exports=mongoose.model("Service",ServiceSchema);

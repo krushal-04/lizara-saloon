@@ -6,17 +6,19 @@ const User=require("./user")
 const Schema=mongoose.Schema;
 
 const bookingSchema= new Schema({
-    name:{
+    Service_name:{
         type:String,
         required: true,
     },
-    
-    Bookdate_from:{
+    Bookdate:{
+        type:Date,
+    },
+    Booktime_from:{
         type:Date,
         required: true,
         
     },
-    Bookdate_to:{
+    Booktime_to:{
         type:Date,
         required: true,
         

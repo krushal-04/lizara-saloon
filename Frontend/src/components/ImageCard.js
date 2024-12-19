@@ -109,7 +109,7 @@ const cards = [
 
 export default function ImageCards() {
   return (
-    <div style={{ backgroundColor: "black" }}>
+    <div style={{ backgroundColor: "whitesmoke" }}>
       <Box
         sx={{
           display: 'flex',

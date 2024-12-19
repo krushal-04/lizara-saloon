@@ -17,11 +17,11 @@ const getAllBooking = async (req, res, next) => {
 
 const createbooking = async (req, res, next) => {
     console.log(req.body);
-    const {name, Bookdate_from, Bookdate_to, user_id, item_id } = req.body;
+    const {name,Bookdate, Booktime_from, Booktime_to, user_id, item_id } = req.body;
 
     
 
-    const Book1 = new Booking({ name, Bookdate_from, Bookdate_to, user_id, item_id });
+    const Book1 = new Booking({ name, Bookdate, Booktime_from, Booktime_to, user_id, item_id });
 
     try {
         await Book1.save();

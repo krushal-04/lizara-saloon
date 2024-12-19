@@ -3,7 +3,8 @@ import {Card,CardContent,CardMedia,Typography,Button,CardActionArea,CardActions,
 
 
 export default function ProductCard({ product }) {
-    // console.log(product)
+     console.log(product)
+     const image = `./images/${product.image}`
     return (
         
         <Card sx={{
@@ -17,14 +18,10 @@ export default function ProductCard({ product }) {
             <CardActionArea>
                 <CardMedia
                     component="img"
-                    image={product.image}
+                    image={image}
                     alt={product.name}
                     sx={{
-<<<<<<< HEAD
                          height: 300,
-=======
-                        height: 400,
->>>>>>> faf845b2df1c1714641336a5e9505c691b97e013
                         objectFit: '-moz-initial',
                         borderRadius: '10px 10px 0 0',
                     //     height: 300,
@@ -48,24 +45,16 @@ export default function ProductCard({ product }) {
                 </CardContent>
             </CardActionArea>
             <CardActions sx={{ justifyContent: "center", pb: 2 }}>
-            <Button
+                            <Button
                     size="medium"
                     variant="contained"
-                    sx={{ backgroundColor: 'primary.main', color: 'white', width:"45%" }}
-                >
-                    Buy Now
-                </Button>
-                <Button
-                    size="medium"
-                    variant="contained"
-<<<<<<< HEAD
                     sx={{ backgroundColor: 'primary.main', color: 'white',height: 30,width: "45%" }}
-=======
-                    sx={{ backgroundColor: 'primary.main', color: 'white', width:"45%" }}
->>>>>>> faf845b2df1c1714641336a5e9505c691b97e013
                 >
                     Add to Cart
                 </Button>
+                {/* <Button variant="contained" startIcon={<ShoppingCartRounded />}>
+  Add item
+</Button> */}
                 <Button
                     size="medium"
                     variant="contained"
