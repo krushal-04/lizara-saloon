@@ -12,6 +12,7 @@ export default function Footer() {
     <Box
       component="footer"
       sx={{
+        position:"static",
         backgroundColor: "black",
         color: "white",
         py: 6,
@@ -20,7 +21,6 @@ export default function Footer() {
     >
       <Box sx={{ maxWidth: "1200px", mx: "auto" }}>
         <Grid container spacing={4}>
-          {/* About Section */}
           <Grid item xs={12} md={4}>
             <Typography variant="h6" gutterBottom fontWeight="bold">
               Lizara Saloon
@@ -31,7 +31,6 @@ export default function Footer() {
             </Typography>
           </Grid>
 
-          {/* Hours Section */}
           <Grid item xs={12} md={4}>
             <Typography variant="h6" gutterBottom fontWeight="bold">
               Hours
@@ -50,7 +49,6 @@ export default function Footer() {
             </Box>
           </Grid>
 
-          {/* Contact Section */}
           <Grid item xs={12} md={4}>
             <Typography variant="h6" gutterBottom fontWeight="bold">
               Contact
@@ -77,7 +75,6 @@ export default function Footer() {
           </Grid>
         </Grid>
 
-        {/* Divider and Footer Bottom */}
         <Divider sx={{ backgroundColor: "gray", my: 4 }} />
         <Box textAlign="center">
           <Typography variant="body2" color="gray">

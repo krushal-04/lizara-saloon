@@ -4,12 +4,15 @@ import Layout from './Layout';
 import NotFound from './pages/NotFound'
 import Services from "./components/services";
 import Product from "./components/Products";
-import Form from "./components/Form"
 import AdminLayout from "./Layout/AdminLayout";
-import AdminHome from "./AdminComponent/AdminHome";
+import AdminHome from "./AdminComponents/AdminHome";
+import ProductDetail from "./components/ProductDetail";
+import Profile from "./components/Profile";
+import Dashboard from "./AdminComponents/Dashboard";
+import AddServices from "./AdminComponents/AddService";
 
-// import DashboardLayoutBasic from "./AdminComponent/Dashboard";
-import Dashboard from "./AdminComponent/Dashboard";
+
+
 function App() {
   return (
     <div>
@@ -20,15 +23,16 @@ function App() {
             <Route index element={<Home />} />
             <Route path="product" element={<Product />} />
             <Route path="services" element={<Services />} />
-            <Route path="Form" element={<Form />} />
-
-          </Route>
-          <Route path="admin" element={<AdminLayout/>}>
-            <Route index element={<AdminHome/>}/>
-            
-            <Route path="dashboard" element={<Dashboard />} />
-          </Route>
+            <Route path="/product/:id" element={<ProductDetail />} />
+            <Route path="profile" element={<Profile/>} />
             <Route path="*" element={<NotFound />} />
+          </Route>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminHome />} />
+            <Route path="dashboard" element={<Dashboard/>} />
+            
+          </Route>
+          <Route path="addservice" element={<AddServices/>} />
         </Routes>
       </BrowserRouter>
 

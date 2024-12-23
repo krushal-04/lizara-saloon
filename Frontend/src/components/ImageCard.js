@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 
+
 const cards = [
   {
     id: 1,
@@ -116,7 +117,6 @@ export default function ImageCards() {
           justifyContent: 'center',
           alignItems: 'center',
 
-          // backgroundColor: 'blanchedalmond',
 
           padding: 2,
 
@@ -132,7 +132,6 @@ export default function ImageCards() {
                   // display: 'flex',
                   // flexDirection: 'column',
                   height: "100%",
-                 
                 }}>
                 <CardMedia
 

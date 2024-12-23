@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import {Card,CardContent,CardMedia,Typography,Button,CardActionArea,CardActions,Rating} from '@mui/material';
 
 
@@ -16,6 +17,7 @@ export default function ProductCard({ product }) {
             height: '100%',
           }}>
             <CardActionArea>
+            <Link to={`/product/${product.id}`} style={{ textDecoration: "none" }}>
                 <CardMedia
                     component="img"
                     image={image}
@@ -24,10 +26,10 @@ export default function ProductCard({ product }) {
                          height: 300,
                         objectFit: '-moz-initial',
                         borderRadius: '10px 10px 0 0',
-                    //     height: 300,
-                    // objectFit: '-moz-initial',
+                 
                     }}
                 />
+                </Link>
                 <CardContent>
                    <center> <Typography gutterBottom variant="h5" component="div">
                         {product.name}
@@ -36,7 +38,7 @@ export default function ProductCard({ product }) {
                        {product.desc}
                     </Typography>
                     <Typography variant="h6" color="text.primary">
-                    Price:  ₹{product.price}
+                    Price:  {product.price}
                     </Typography>
                     {/* <Typography variant="h6" color="text.primary">
                         {product.Category_name}
@@ -52,9 +54,7 @@ export default function ProductCard({ product }) {
                 >
                     Add to Cart
                 </Button>
-                {/* <Button variant="contained" startIcon={<ShoppingCartRounded />}>
-  Add item
-</Button> */}
+                
                 <Button
                     size="medium"
                     variant="contained"

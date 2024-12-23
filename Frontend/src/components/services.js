@@ -6,25 +6,35 @@ import {
   Typography,
   Button,
   Avatar,
-  TextField,
   Box,
   ToggleButton,
   ToggleButtonGroup,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 
 const menServices = [
   { title: "Packages", icon: "📦" },
-  { title: "Haircut & Beard Styling", icon: "✂⃣" },
-  { title: "Massage", icon: "💆‍♂⃣" },
+  { title: "Haircut & Beard Styling", icon: "✂" },
+  { title: "Massage", icon: "💆‍♂" },
   { title: "Detan", icon: "🧖" },
+];
+
+const smallMenCards = [
+  { title: "Haircut", price: "₹200" },
+  { title: "Beard Trim", price: "₹150" },
+  { title: "Head Massage", price: "₹250" },
 ];
 
 const womenServices = [
   { title: "Manicure & Pedicure", icon: "💅" },
   { title: "Hair Color", icon: "🎨" },
   { title: "Facial & Cleanup", icon: "🧴" },
-  { title: "Massage", icon: "💆‍♀⃣" },
+  { title: "Massage", icon: "💆‍♀" },
+];
+
+const smallWomenCards = [
+  { title: "Manicure", price: "₹300" },
+  { title: "Pedicure", price: "₹350" },
+  { title: "Hair Wash", price: "₹150" },
 ];
 
 const menPackages = [
@@ -53,18 +63,13 @@ const Services = () => {
   };
 
   const services = gender === "men" ? menServices : womenServices;
+  const smallCards = gender === "men" ? smallMenCards : smallWomenCards;
   const packages = gender === "men" ? menPackages : womenPackages;
 
   return (
     <Box sx={{ padding: 4 }}>
-      {/* Header with Search */}
+      {/* Gender Toggle */}
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
-        <TextField
-          variant="outlined"
-          placeholder="Search "
-          size="small"
-          InputProps={{ startAdornment: <SearchIcon /> }}
-        />
         <ToggleButtonGroup
           value={gender}
           exclusive
@@ -76,37 +81,60 @@ const Services = () => {
         </ToggleButtonGroup>
       </Box>
 
-      {/* Main Layout */}
       <Grid container spacing={4}>
-        {/* Services */}
+        {/* Services Section */}
         <Grid item xs={12} md={6}>
           <Typography variant="h6" mb={2} fontWeight="bold">
             {gender === "men" ? "Men's Services" : "Women's Services"}
           </Typography>
-          <Box>
-            {services.map((service) => (
-              <Card
-                key={service.title}
-                variant="outlined"
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  padding: 2,
-                  marginBottom: 2,
-                  cursor: "pointer",
-                  ":hover": { boxShadow: 3 },
-                }}
-              >
-                <Avatar sx={{ bgcolor: "primary.light", marginRight: 2 }}>
-                  {service.icon}
-                </Avatar>
-                <Typography variant="body1">{service.title}</Typography>
-              </Card>
-            ))}
+          <Box display="flex">
+            {/* Large Cards for Services */}
+            <Box flex={1}>
+              {services.map((service) => (
+                <Card
+                  key={service.title}
+                  variant="elevation"
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    padding: 2,
+                    marginBottom: 2,
+                    cursor: "pointer",
+                    ":hover": { boxShadow: 3 },
+                  }}
+                >
+                  <Avatar sx={{ bgcolor: "primary.light", marginRight: 2 }}>
+                    {service.icon}
+                  </Avatar>
+                  <Typography variant="body1">{service.title}</Typography>
+                </Card>
+              ))}
+            </Box>
+            {/* Small Cards */}
+            <Box flex={1} pl={2}>
+              {smallCards.map((card) => (
+                <Card
+                  key={card.title}
+                  variant="outlined"
+                  sx={{
+                    marginBottom: 2,
+                    padding: 2,
+                    ":hover": { boxShadow: 3 },
+                  }}
+                >
+                  <Typography variant="body1" fontWeight="bold">
+                    {card.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {card.price}
+                  </Typography>
+                </Card>
+              ))}
+            </Box>
           </Box>
         </Grid>
 
-        {/* Packages */}
+        {/* Packages Section */}
         <Grid item xs={12} md={6}>
           <Typography variant="h6" mb={2} fontWeight="bold">
             {gender === "men" ? "Men's Packages" : "Women's Packages"}

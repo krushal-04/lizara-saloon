@@ -1,9 +1,11 @@
 import React from 'react'
 import Login from './Login'
-export default function AdminHome() {
+
+ const AdminHome = () => {
   return (
     <div>
         <Login/>
     </div>
   )
 }
+export default AdminHome;

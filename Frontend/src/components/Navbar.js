@@ -11,11 +11,15 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import ContentCutIcon from '@mui/icons-material/ContentCut';
 import { Link } from "react-router-dom";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
-const settings = ['Profile', 'Account', 'Login', 'Logout'];
+const settings = [
+  { label: 'Profile', path: '/profile' },
+  { label: 'Account', path: '/account' },
+  { label: 'Login', path: '/login' },
+  { label: 'Logout', path: '/logout' },
+];
 
 function ResponsiveAppBar({ logo }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -41,7 +45,21 @@ function ResponsiveAppBar({ logo }) {
     <AppBar position="static" sx={{ backgroundColor: 'black' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <ContentCutIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          {/* Desktop Logo */}
+          <Box
+            component="a"
+            href="/"
+            sx={{
+              display: { xs: 'none', md: 'flex' },
+              mr: 2,
+            }}
+          >
+            <img 
+              src={logo || './images/L1.png'} 
+              alt="Logo" 
+              style={{ height: '80px', objectFit: 'contain' }} 
+            />
+          </Box>
           <Typography
             variant="h6"
             noWrap
@@ -53,11 +71,11 @@ function ResponsiveAppBar({ logo }) {
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'inherit',
+              color: 'whitesmoke',
               textDecoration: 'none',
             }}
           >
-            Lizara Saloon
+            Lizara Salon
           </Typography>
 
           {/* Mobile Menu */}
@@ -101,7 +119,25 @@ function ResponsiveAppBar({ logo }) {
             </Menu>
           </Box>
 
-          {/* Desktop Menu */}
+          {/* Mobile Logo */}
+          <Box
+            component="a"
+            href="/"
+            sx={{
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              justifyContent: 'center',
+              textDecoration: 'none',
+            }}
+          >
+            <img 
+              src={logo || './images/Logo.png'} 
+              alt="Logo" 
+              style={{ height: '30px', objectFit: 'contain' }} 
+            />
+          </Box>
+
+          {/* Desktop Navigation */}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             <Link to="/Product" style={{ textDecoration: 'none' }}>
               <Button sx={{ my: 2, color: 'white' }}>Products</Button>
@@ -111,6 +147,7 @@ function ResponsiveAppBar({ logo }) {
             </Link>
           </Box>
 
+          {/* Cart and User Menu */}
           <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', gap: 2 }}>
             <Tooltip title="Cart">
               <IconButton sx={{ color: 'white' }}>
@@ -125,6 +162,7 @@ function ResponsiveAppBar({ logo }) {
             </Tooltip>
           </Box>
 
+          {/* User Menu */}
           <Menu
             sx={{ mt: '45px' }}
             id="menu-appbar"
@@ -141,9 +179,11 @@ function ResponsiveAppBar({ logo }) {
             open={Boolean(anchorElUser)}
             onClose={handleCloseUserMenu}
           >
-            {settings.map((setting) => (
-              <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
+            {settings.map(({ label, path }) => (
+              <MenuItem key={label} onClick={handleCloseUserMenu}>
+                <Link to={path} style={{ textDecoration: 'none', color: 'black' }}>
+                  <Typography sx={{ textAlign: 'center' }}>{label}</Typography>
+                </Link>
               </MenuItem>
             ))}
           </Menu>
