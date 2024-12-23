@@ -9,7 +9,9 @@ import {
   Box,
   ToggleButton,
   ToggleButtonGroup,
+  IconButton,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const menServices = [
   { title: "Packages", icon: "📦" },
@@ -37,34 +39,30 @@ const smallWomenCards = [
   { title: "Hair Wash", price: "₹150" },
 ];
 
-const menPackages = [
-  {
-    title: "Grooming Essentials",
-    price: "₹557",
-    duration: "1 hr 55 mins",
-    details: "Haircut, Beard Grooming, Head Massage",
-  },
-];
-
-const womenPackages = [
-  {
-    title: "Cut & Color",
-    price: "₹508",
-    duration: "1 hr",
-    details: "Haircut & Hair Color",
-  },
-];
-
 const Services = () => {
   const [gender, setGender] = useState("men");
+  const [cart, setCart] = useState([]);
 
   const handleGenderChange = (event, newGender) => {
     if (newGender) setGender(newGender);
   };
 
+  const addToCart = (item) => {
+    // Add service to cart only if it doesn't already exist
+    setCart((prev) => {
+      if (prev.some((cartItem) => cartItem.title === item.title)) {
+        return prev; // Service already exists, no duplicates
+      }
+      return [...prev, item];
+    });
+  };
+
+  const removeFromCart = (index) => {
+    setCart((prev) => prev.filter((_, i) => i !== index));
+  };
+
   const services = gender === "men" ? menServices : womenServices;
   const smallCards = gender === "men" ? smallMenCards : smallWomenCards;
-  const packages = gender === "men" ? menPackages : womenPackages;
 
   return (
     <Box sx={{ padding: 4 }}>
@@ -128,36 +126,51 @@ const Services = () => {
                   <Typography variant="body2" color="text.secondary">
                     {card.price}
                   </Typography>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    sx={{ mt: 1 }}
+                    onClick={() => addToCart(card)}
+                  >
+                    Add Service
+                  </Button>
                 </Card>
               ))}
             </Box>
           </Box>
         </Grid>
 
-        {/* Packages Section */}
+        {/* Cart Section */}
         <Grid item xs={12} md={6}>
           <Typography variant="h6" mb={2} fontWeight="bold">
-            {gender === "men" ? "Men's Packages" : "Women's Packages"}
+            Service Cart
           </Typography>
           <Box>
-            {packages.map((pkg) => (
-              <Card key={pkg.title} variant="outlined" sx={{ marginBottom: 2 }}>
-                <CardContent>
-                  <Typography variant="h6" fontWeight="bold">
-                    {pkg.title}
+            {cart.map((item, index) => (
+              <Card
+                key={`${item.title}-${index}`}
+                variant="outlined"
+                sx={{ marginBottom: 2, padding: 2, display: "flex", alignItems: "center" }}
+              >
+                <Box flex={1}>
+                  <Typography variant="body1" fontWeight="bold">
+                    {item.title}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {pkg.details}
+                    {item.price}
                   </Typography>
-                  <Typography variant="body1" mt={1} fontWeight="bold">
-                    {pkg.price} • {pkg.duration}
-                  </Typography>
-                  <Button variant="contained" size="small" sx={{ mt: 2 }}>
-                    Add
-                  </Button>
-                </CardContent>
+                </Box>
+                <IconButton
+                  color="error"
+                  onClick={() => removeFromCart(index)}
+                >
+                  <DeleteIcon />
+                </IconButton>
               </Card>
             ))}
+            {cart.length === 0 && (
+              <Typography color="text.secondary">Your cart is empty</Typography>
+            )}
           </Box>
         </Grid>
       </Grid>

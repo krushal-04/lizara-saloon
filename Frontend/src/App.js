@@ -9,6 +9,7 @@ import ProductDetail from "./components/ProductDetail";
 import Profile from "./components/Profile";
 import Dashboard from "./AdminComponents/Dashboard";
 import AdminHome from "./AdminComponents/AdminHome";
+import LoginUser from "./components/LoginUser";
 function App() {
   return (
     <div>
@@ -21,12 +22,13 @@ function App() {
             <Route path="services" element={<Services />} />
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="profile" element={<Profile/>} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="loginuser" element={<LoginUser/>} />
           </Route>
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminHome />} />
             <Route path="dashboard" element={<Dashboard/>} />
           </Route>
+            <Route path="*" element={<NotFound />} /> 
         </Routes>
       </BrowserRouter>
 

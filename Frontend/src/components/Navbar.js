@@ -17,7 +17,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 const settings = [
   { label: 'Profile', path: '/profile' },
   { label: 'Account', path: '/account' },
-  { label: 'Login', path: '/login' },
+  { label: 'Login', path: '/loginuser' },
   { label: 'Logout', path: '/logout' },
 ];
 
@@ -157,7 +157,7 @@ function ResponsiveAppBar({ logo }) {
 
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="User" src="" />
+                <Avatar alt="User" src="./images/profile1.jpg" />
               </IconButton>
             </Tooltip>
           </Box>

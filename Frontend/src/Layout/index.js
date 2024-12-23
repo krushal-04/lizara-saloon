@@ -11,7 +11,7 @@ const Index = () => {
         <Navbar />
       </AppBar>
       <Outlet />
-      <Footer/>
+      {/* <Footer/> */}
 
     </div>
   )

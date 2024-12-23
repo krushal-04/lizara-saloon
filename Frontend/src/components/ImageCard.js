@@ -129,8 +129,7 @@ export default function ImageCards() {
                    maxWidth: 345,
                   margin: '0 auto',
                   borderRadius: "30px",
-                  // display: 'flex',
-                  // flexDirection: 'column',
+                  
                   height: "100%",
                 }}>
                 <CardMedia

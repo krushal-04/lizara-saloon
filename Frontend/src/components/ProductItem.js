@@ -4,7 +4,8 @@ import {Card,CardContent,CardMedia,Typography,Button,CardActionArea,CardActions,
 
 
 export default function ProductCard({ product }) {
-    // console.log(product)
+    console.log(product)
+    const image = `./images/${product.image}`
     return (
         
         <Card sx={{
@@ -19,7 +20,7 @@ export default function ProductCard({ product }) {
             <Link to={`/product/${product.id}`} style={{ textDecoration: "none" }}>
                 <CardMedia
                     component="img"
-                    image={product.image}
+                    image={image}
                     alt={product.name}
                     sx={{
                          height: 400,
@@ -29,7 +30,7 @@ export default function ProductCard({ product }) {
                     }}
                 />
                 </Link>
-                <CardContent>
+                <CardContent> 
                    <center> <Typography gutterBottom variant="h5" component="div">
                         {product.name}
                     </Typography></center><br></br>
