@@ -17,9 +17,11 @@ const getAllItems = async (req, res, next) => {
 const getAllServiceByCatid = async (req, res, next) => {
     let Category;
     let id = req.body.id;
+    let filteredCategory
     console.log(id)
     try {
-        Category = await items.findById(id);
+        Category = await items.find();
+         filteredCategory = Category.filter((item) => item?.Category_id == id);
     } 
     catch (err) {
         return next(err);
@@ -27,7 +29,7 @@ const getAllServiceByCatid = async (req, res, next) => {
     if (!Category) {
         return res.status(500).json({ message: "Internal server error" });
     }
-    return res.status(200).json({ Category });
+    return res.status(200).json({ filteredCategory });
 };
 const createItem = async (req, res, next) => {
     console.log(req.body);
