@@ -15,6 +15,11 @@ const ServiceCat_Schema= new Schema({
         required: true,
         
     },
+    Category_id:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref: 'Category',
+            
+        },
     image:{
         type:String,
         

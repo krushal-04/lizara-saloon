@@ -29,15 +29,31 @@ const getAllSerCategorybyid = async (req, res, next) => {
     }
     return res.status(200).json({ Ser_Category });
 };
-
+const getAllServiceByCatid = async (req, res, next) => {
+    let Category;
+    let id = req.body.id;
+    let filteredCategory
+    console.log(id)
+    try {
+        Category = await items.find();
+         filteredCategory = Category.filter((item) => item?.Category_id ==  id);
+    } 
+    catch (err) {
+        return next(err);
+    }
+    if (!Category) {
+        return res.status(500).json({ message: "Internal server error" });
+    }
+    return res.status(200).json({ filteredCategory });
+};
 
 const createCategory = async (req, res, next) => {
     console.log(req.body);
-    const {name, Category_name, image,desc} = req.body;
+    const {name, Category_name,Category_id, image,desc} = req.body;
 
     
 
-    const Category1 = new Service_Category({ name, Category_name, image,desc });
+    const Category1 = new Service_Category({ name, Category_name,Category_id, image,desc });
 
     try {
         await Category1.save();
@@ -55,3 +71,4 @@ const createCategory = async (req, res, next) => {
 exports.getAllSerCategory = getAllSerCategory;
 exports.getAllSerCategorybyid = getAllSerCategorybyid;
 exports.createCategory = createCategory;
+exports.getAllServiceByCatid=getAllServiceByCatid;
