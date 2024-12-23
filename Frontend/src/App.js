@@ -9,10 +9,15 @@ import AdminHome from "./AdminComponents/AdminHome";
 import ProductDetail from "./components/ProductDetail";
 import Profile from "./components/Profile";
 import Dashboard from "./AdminComponents/Dashboard";
+<<<<<<< HEAD
 import AddServices from "./AdminComponents/AddService";
 
 
 
+=======
+import AdminHome from "./AdminComponents/AdminHome";
+import LoginUser from "./components/LoginUser";
+>>>>>>> 3a5cad03f2d60cf3e699465e8672b3b811b81f3b
 function App() {
   return (
     <div>
@@ -25,14 +30,18 @@ function App() {
             <Route path="services" element={<Services />} />
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="profile" element={<Profile/>} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="loginuser" element={<LoginUser/>} />
           </Route>
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminHome />} />
             <Route path="dashboard" element={<Dashboard/>} />
             
           </Route>
+<<<<<<< HEAD
           <Route path="addservice" element={<AddServices/>} />
+=======
+            <Route path="*" element={<NotFound />} /> 
+>>>>>>> 3a5cad03f2d60cf3e699465e8672b3b811b81f3b
         </Routes>
       </BrowserRouter>
 

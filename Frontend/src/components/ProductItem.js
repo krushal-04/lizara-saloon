@@ -4,8 +4,13 @@ import {Card,CardContent,CardMedia,Typography,Button,CardActionArea,CardActions,
 
 
 export default function ProductCard({ product }) {
+<<<<<<< HEAD
      console.log(product)
      const image = `./images/${product.image}`
+=======
+    console.log(product)
+    const image = `./images/${product.image}`
+>>>>>>> 3a5cad03f2d60cf3e699465e8672b3b811b81f3b
     return (
         
         <Card sx={{
@@ -30,7 +35,7 @@ export default function ProductCard({ product }) {
                     }}
                 />
                 </Link>
-                <CardContent>
+                <CardContent> 
                    <center> <Typography gutterBottom variant="h5" component="div">
                         {product.name}
                     </Typography></center><br></br>
