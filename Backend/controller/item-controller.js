@@ -21,7 +21,7 @@ const getAllServiceByCatid = async (req, res, next) => {
     console.log(id)
     try {
         Category = await items.find();
-         filteredCategory = Category.filter((item) => item?.Category_id == id);
+         filteredCategory = Category.filter((item) => item?.Category_id ==  id);
     } 
     catch (err) {
         return next(err);
