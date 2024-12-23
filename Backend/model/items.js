@@ -1,10 +1,9 @@
 const  mongoose =require("mongoose");
+const Category = require("./Category");
 const Schema=mongoose.Schema;
 
 const ItemSchema= new Schema({
-    image:{
-        type:String,
-    },
+    
     
     name:{
         type:String,
@@ -35,6 +34,11 @@ const ItemSchema= new Schema({
         required: true,
         
     },
+    Category_id:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'Category',
+        
+    }
 })
 
 module.exports=mongoose.model("Item",ItemSchema );

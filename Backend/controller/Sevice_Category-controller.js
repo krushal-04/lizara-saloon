@@ -14,6 +14,22 @@ const getAllSerCategory = async (req, res, next) => {
     }
     return res.status(200).json({ Ser_Category });
 };
+const getAllSerCategorybyid = async (req, res, next) => {
+    let Ser_Category;
+    let id = req.body.id;
+    console.log(id)
+    try {
+        Ser_Category = await Service_Category.findById(id);
+    } 
+    catch (err) {
+        return next(err);
+    }
+    if (!Ser_Category) {
+        return res.status(500).json({ message: "Internal server error" });
+    }
+    return res.status(200).json({ Ser_Category });
+};
+
 
 const createCategory = async (req, res, next) => {
     console.log(req.body);
@@ -37,4 +53,5 @@ const createCategory = async (req, res, next) => {
 };
 
 exports.getAllSerCategory = getAllSerCategory;
+exports.getAllSerCategorybyid = getAllSerCategorybyid;
 exports.createCategory = createCategory;

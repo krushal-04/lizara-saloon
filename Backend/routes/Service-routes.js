@@ -1,10 +1,12 @@
 const express = require("express");
-const { getAllService,createService } = require("../controller/Service-controller");
+const { getAllService,createService,getAllServiceByCatid } = require("../controller/Service-controller");
 
 const router=express.Router();
 
 router.get("/",getAllService);
+router.post("/getCatid",getAllServiceByCatid);
 router.post("/service",createService);
+
 
 
 

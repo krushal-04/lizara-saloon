@@ -14,6 +14,27 @@ const getAllService = async (req, res, next) => {
     }
     return res.status(200).json({ Service });
 };
+const getAllServiceByCatid = async (req, res, next) => {
+    let service;
+    let catId = req.body.catId
+    let AllService=[];
+    try {
+        service = await Services.find();
+        console.log(service)
+        service.forEach((item)=>{
+            if(item.Service_Category == catId){
+                AllService.push(item)}
+                
+        });
+    } 
+    catch (err) {
+        return next(err);
+    }
+    if (!service) {
+        return res.status(500).json({ message: "Internal server error" });
+    }
+    return res.status(200).json({ AllService });
+};
 
 const createService = async (req, res, next) => {
     console.log(req.body);
@@ -38,3 +59,4 @@ const createService = async (req, res, next) => {
 
 exports.getAllService = getAllService;
 exports.createService = createService;
+exports .getAllServiceByCatid = getAllServiceByCatid;
