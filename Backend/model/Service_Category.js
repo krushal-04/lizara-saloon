@@ -24,10 +24,8 @@ const ServiceCat_Schema= new Schema({
         type:String,
         
         
-    },
-    desc:{
-        type:String,
     }
+    
     
         
        

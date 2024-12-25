@@ -1,4 +1,5 @@
 const Category = require("../model/Category");
+const Service_Category=require("../model/Service_Category")
 
 
 const getCategory = async (req, res, next) => {
@@ -29,6 +30,23 @@ const getbyid = async (req, res, next) => {
     }
     return res.status(200).json({ Categorys });
 };
+const getAllCategoryByid = async (req, res, next) => {
+    let Category;
+    let id = req.body.id;
+    let Ser_Category;
+    console.log(id)
+    try {
+        Category = await Service_Category.find();
+         Ser_Category = Category.filter((item) => item?.Category_id ==  id);
+    } 
+    catch (err) {
+        return next(err);
+    }
+    if (!Category) {
+        return res.status(500).json({ message: "Internal server error" });
+    }
+    return res.status(200).json({ Ser_Category });
+};
 
 
 const CreateCategory = async (req, res, next) => {
@@ -54,4 +72,5 @@ const CreateCategory = async (req, res, next) => {
 
 exports.getCategory = getCategory;
 exports. getbyid =  getbyid;
+exports.getAllCategoryByid = getAllCategoryByid;
 exports.CreateCategory = CreateCategory;

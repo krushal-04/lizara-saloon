@@ -49,11 +49,11 @@ const getAllServiceByCatid = async (req, res, next) => {
 
 const createCategory = async (req, res, next) => {
     console.log(req.body);
-    const {name, Category_name,Category_id, image,desc} = req.body;
+    const {name, Category_name,Category_id, image} = req.body;
 
     
 
-    const Category1 = new Service_Category({ name, Category_name,Category_id, image,desc });
+    const Category1 = new Service_Category({ name, Category_name,Category_id, image});
 
     try {
         await Category1.save();
