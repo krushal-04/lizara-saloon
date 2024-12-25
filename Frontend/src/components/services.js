@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
   Grid,
   Card,
@@ -19,70 +20,45 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const ServicePage = () => {
-  // Extended Services Data
-  const services = [
-    {
-      id: 1,
-      name: "Grooming essentials",
-      price: 557,
-      discount: 657,
-      duration: "1 hr 5 mins",
-      details: ["Haircut for men", "Beard trimming & styling", "Head massage (10 mins)"],
-      category: "Packages",
-      rating: 4.88,
-      reviews: "909K",
-      gender: "Men",
-    },
-    {
-      id: 2,
-      name: "Cut & color",
-      price: 508,
-      discount: 558,
-      duration: "60 mins",
-      details: ["Haircut for men", "Hair color (Garnier): Brown black (shade 3)"],
-      category: "Haircut & beard styling",
-      rating: 4.88,
-      reviews: "538K",
-      gender: "Men",
-    },
-    {
-      id: 3,
-      name: "Detan therapy",
-      price: 399,
-      discount: 499,
-      duration: "45 mins",
-      details: ["Full face detan", "Glow enhancement", "Relaxation therapy"],
-      category: "Detan",
-      rating: 4.72,
-      reviews: "320K",
-      gender: "Women",
-    },
-    {
-      id: 4,
-      name: "Facial & cleanup",
-      price: 699,
-      discount: 799,
-      duration: "1 hr 15 mins",
-      details: ["Deep cleansing facial", "Hydration therapy", "Acne control treatment"],
-      category: "Facial & cleanup",
-      rating: 4.85,
-      reviews: "410K",
-      gender: "Women",
-    },
-    // Add more services as needed
-  ];
-
-  // Categories
-  const categories = ["All", "Packages", "Haircut & beard styling", "Massage", "Detan", "Facial & cleanup"];
-
-  // State to manage cart, selected category, and gender
+  const [services, setServices] = useState({});
+  const [categories, setCategories] = useState({});
   const [cart, setCart] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedGender, setSelectedGender] = useState("Men");
+  const [loading, setLoading] = useState(true);
 
-  // Add to cart function
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await axios.get("http://localhost:5050/Service_Cat").then((response) => {
+          setCategories(response.data);
+          setLoading(false);
+        });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+    fetchData1();
+  }, []);
+
+  const fetchData1 = async () => {
+    try {
+      await axios.get("http://localhost:5050/Services/").then((response) => {
+        setServices(response.data);
+        setLoading(false);
+      });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false);
+    }
+  };
+
   const addToCart = (service) => {
     const existingItem = cart.find((item) => item.id === service.id);
     if (existingItem) {
@@ -96,7 +72,6 @@ const ServicePage = () => {
     }
   };
 
-  // Update cart quantity
   const updateCartQuantity = (serviceId, increment) => {
     setCart(
       cart
@@ -105,56 +80,107 @@ const ServicePage = () => {
             ? { ...item, quantity: item.quantity + increment }
             : item
         )
-        .filter((item) => item.quantity > 0) // Remove items with quantity 0
+        .filter((item) => item.quantity > 0)
     );
   };
 
-  // Calculate total price
+  const removeFromCart = (serviceId) => {
+    setCart(cart.filter((item) => item.id !== serviceId));
+  };
+
   const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  // Filter services based on selected category and gender
-  const filteredServices = services.filter(
-    (service) =>
-      (selectedCategory === "All" || service.category === selectedCategory) &&
-      service.gender === selectedGender
-  );
+  if (loading) {
+    return <Typography>Loading...</Typography>;
+  }
+
+  const handleCategoryClick = async (category) => {
+    try {
+      await axios
+        .post("http://localhost:5050/Services/getCatid", { catId: category._id })
+        .then((response) => {
+          setServices(response.data);
+          setLoading(false);
+        });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false);
+    }
+    setSelectedCategory(category.name);
+  };
+
+  const handleAllClick = async () => {
+    fetchData1();
+    setSelectedCategory("All Services");
+  };
 
   return (
-    <Box p={3}>
+    <Box p={2}>
       <Grid container spacing={2}>
-        {/* Gender Toggle */}
         <Grid item xs={12}>
-          <ToggleButtonGroup
-            value={selectedGender}
-            exclusive
-            onChange={(event, newGender) => setSelectedGender(newGender)}
-            aria-label="Gender Toggle"
-          >
-            <ToggleButton value="Men" aria-label="Men">
-              Men
-            </ToggleButton>
-            <ToggleButton value="Women" aria-label="Women">
-              Women
-            </ToggleButton>
-          </ToggleButtonGroup>
+          <Box display="flex" alignItems="center">
+            <ToggleButtonGroup
+              value={selectedGender}
+              exclusive
+              onChange={(event, newGender) => setSelectedGender(newGender)}
+              aria-label="Gender Toggle"
+              style={{ flexShrink: 0 }}
+            >
+              <ToggleButton value="Men" aria-label="Men">
+                Men
+              </ToggleButton>
+              <ToggleButton value="Women" aria-label="Women">
+                Women
+              </ToggleButton>
+            </ToggleButtonGroup>
+
+            <Box flexGrow={1} />
+
+            <Typography variant="h4" gutterBottom textAlign="center" style={{ flexGrow: 1 }}>
+              {selectedCategory === "All" ? "All Services" : selectedCategory}
+            </Typography>
+
+            <Box flexGrow={1} />
+          </Box>
         </Grid>
 
-        {/* Left Section: Service Categories */}
-        <Grid item xs={3}>
-          <Card>
+        <Grid item xs={12} md={3}>
+          <Card >
             <CardContent>
               <Typography variant="h6" gutterBottom>
                 Select a service
               </Typography>
               <List>
-                {categories.map((category, index) => (
+                <ListItem button onClick={handleAllClick}>
+                  <img
+                    src={`./images/profile1.jpg`}
+                    alt="All Services"
+                    style={{
+                      width: 40,
+                      height: 40,
+                      borderRadius: "50%",
+                      marginRight: 10,
+                    }}
+                  />
+                  <ListItemText primary={"All Services"} />
+                </ListItem>
+                {categories?.Ser_Category?.map((category, index) => (
                   <ListItem
                     button
                     key={index}
-                    selected={selectedCategory === category}
-                    onClick={() => setSelectedCategory(category)}
+                    onClick={() => handleCategoryClick(category)}
                   >
-                    <ListItemText primary={category} />
+                    <img
+                      src={`./images/${category.image}`}
+                      alt={category.name}
+                      style={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: "50%",
+                        marginRight: 10,
+                      }}
+                    />
+                    <ListItemText primary={category.name} />
                   </ListItem>
                 ))}
               </List>
@@ -162,51 +188,61 @@ const ServicePage = () => {
           </Card>
         </Grid>
 
-        {/* Middle Section: Packages */}
-        <Grid item xs={6}>
-          <Typography variant="h4" gutterBottom>
-            {selectedCategory === "All" ? "All Services" : selectedCategory}
-          </Typography>
-          {filteredServices.map((service) => (
-            <Card key={service.id} sx={{ mb: 2 }}>
-              <CardContent>
-                <Typography variant="h6">{service.name}</Typography>
-                <Typography variant="body2" color="text.secondary">
-                  ⭐ {service.rating} ({service.reviews} reviews)
-                </Typography>
-                <Typography variant="body1" sx={{ mt: 1 }}>
-                  ₹{service.price}{" "}
-                  <Typography
-                    component="span"
-                    color="text.secondary"
-                    sx={{ textDecoration: "line-through" }}
-                  >
-                    ₹{service.discount}
-                  </Typography>{" "}
-                  • {service.duration}
-                </Typography>
-                <List>
-                  {service.details.map((detail, i) => (
-                    <ListItem key={i} sx={{ py: 0 }}>
-                      <ListItemText primary={detail} />
-                    </ListItem>
-                  ))}
-                </List>
-                <Button
-                  variant="outlined"
-                  startIcon={<AddShoppingCartIcon />}
-                  sx={{ mt: 2 }}
-                  onClick={() => addToCart(service)}
+        <Grid item xs={12} md={6}>
+          {services?.Service?.map((service) => {
+
+            return (
+              <Card key={service.id} sx={{ mb: 2, display: "flex", flexDirection: "row" , border: "2px solid #ddd" }}>
+                <CardContent
+                  sx={{
+                    flex: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRight: "1px solid #ddd",
+                  }}
                 >
-                  Add
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
+                  <img
+                    src={`./images/${service.image}`}
+                    alt={service.name}
+                    style={{
+                      width: 100,
+                      height: 100,
+                      borderRadius: "1%",
+                      marginBottom: 8,
+                    }}
+                  />
+                  <Typography variant="h6" textAlign="center">
+                    {service.name}
+                  </Typography>
+                </CardContent>
+
+                <CardContent sx={{ flex: 2 }}>
+                  <Typography variant="h6" sx={{ mb: 1 }}>
+                    {service.description}
+                  </Typography>
+                  <Typography variant="body1" sx={{ mb: 1 }}>
+                    ₹{service.price}
+                  </Typography>
+                  
+                   
+                    <Button
+                      variant="outlined"
+                      startIcon={<AddShoppingCartIcon />}
+                      sx={{ mt: 2 }}
+                      onClick={() => addToCart(service)}
+                    >
+                      Add
+                    </Button>
+              
+                </CardContent>
+              </Card>
+            );
+          })}
         </Grid>
 
-        {/* Right Section: Cart */}
-        <Grid item xs={3}>
+        <Grid item xs={12} md={3}>
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>
@@ -223,19 +259,17 @@ const ServicePage = () => {
                         justifyContent="space-between"
                         sx={{ mt: 1 }}
                       >
-                        <IconButton
-                          onClick={() => updateCartQuantity(item.id, -1)}
-                        >
+                        <IconButton onClick={() => updateCartQuantity(item.id, -1)}>
                           <RemoveIcon />
                         </IconButton>
                         <Typography>{item.quantity}</Typography>
-                        <IconButton
-                          onClick={() => updateCartQuantity(item.id, 1)}
-                        >
+                        <IconButton onClick={() => updateCartQuantity(item.id, 1)}>
                           <AddIcon />
                         </IconButton>
+                        <IconButton onClick={() => removeFromCart(item.id)}>
+                          <DeleteIcon />
+                        </IconButton>
                       </Box>
-                      
                     </Box>
                   ))}
                   <Divider />

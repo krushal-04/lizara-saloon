@@ -17,13 +17,13 @@ const getAllService = async (req, res, next) => {
 const getAllServiceByCatid = async (req, res, next) => {
     let service;
     let catId = req.body.catId
-    let AllService=[];
+    let Service=[];
     try {
         service = await Services.find();
         console.log(service)
         service.forEach((item)=>{
             if(item.Service_Category == catId){
-                AllService.push(item)}
+                Service.push(item)}
                 
         });
     } 
@@ -33,7 +33,7 @@ const getAllServiceByCatid = async (req, res, next) => {
     if (!service) {
         return res.status(500).json({ message: "Internal server error" });
     }
-    return res.status(200).json({ AllService });
+    return res.status(200).json({ Service });
 };
 
 const createService = async (req, res, next) => {
