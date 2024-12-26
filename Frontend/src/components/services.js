@@ -31,7 +31,31 @@ const ServicePage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    
+
+    const fetchData = async () => {
+
+      let id = "676909a949a0a01675dda2cd";
+
+      try {
+        const res2 = await
+          axios.post("http://localhost:5050/Category/getCatid", {
+            id: id
+          }).then((response) => {
+
+
+            setCategories(response.data);
+            console.log(response.data);
+            setLoading(false);
+          })
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+
+      setSelectedCategory();
+    };
+
+
     fetchData();
     // fetchData1();
     fetchData2();
