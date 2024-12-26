@@ -31,21 +31,48 @@ const ServicePage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await axios.get("http://localhost:5050/Service_Cat").then((response) => {
-          setCategories(response.data);
-          setLoading(false);
-        });
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false);
-      }
-    };
-
+    
     fetchData();
-    fetchData1();
+    // fetchData1();
+    fetchData2();
   }, []);
+  const fetchData = async () => {
+      
+    let id = "676909a949a0a01675dda2cd";
+    try {
+      const res3 = await
+        axios.post("http://localhost:5050/Category/getserviceid", {
+          id: id
+        }).then((response) => {
+
+
+          setServices(response.data);
+          console.log(response.data);
+          setLoading(false);
+        })
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false);
+    }
+
+    try {
+      const res2 = await
+        axios.post("http://localhost:5050/Category/getCatid", {
+          id: id
+        }).then((response) => {
+
+
+          setCategories(response.data);
+          console.log(response.data);
+          setLoading(false);
+        })
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false);
+    }
+
+    setSelectedCategory();
+  };
 
   const fetchData1 = async () => {
     try {
@@ -57,6 +84,88 @@ const ServicePage = () => {
       console.error("Error fetching data:", error);
       setLoading(false);
     }
+  };
+  const fetchData2 = async () => {
+    try {
+      const res1 = await
+        axios.get("http://localhost:5050/Category/").then((response) => {
+
+
+          setSelectedGender(response.data);
+          console.log(response.data);
+          setLoading(false);
+        })
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false);
+    }
+  };
+  const handleclick = async (category) => {
+    console.log(category);
+    let id = category._id;
+    try {
+      const res2 = await
+        axios.post("http://localhost:5050/Services/getCatid", {
+          catId: id
+        }).then((response) => {
+
+
+          setServices(response.data);
+          console.log(response.data);
+          setLoading(false);
+        })
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false);
+    }
+
+    setSelectedCategory(category.name);
+  }
+  const handelallclick = async () => {
+
+    fetchData();
+    setSelectedCategory("All Service");
+  }
+  const handlegender = async (category) => {
+     let Men_id = "676909a949a0a01675dda2cd";
+    console.log(category);
+    let id = category._id;
+    try {
+      const res2 = await
+        axios.post("http://localhost:5050/Category/getCatid", {
+          id: id
+        }).then((response) => {
+
+
+          setCategories(response.data);
+          console.log(response.data);
+          setLoading(false);
+        })
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false);
+    }
+    try {
+      const res2 = await
+        axios.post("http://localhost:5050/Category/getserviceid", {
+          id: id
+        }).then((response) => {
+
+
+          setServices(response.data);
+          console.log(response.data);
+          setLoading(false);
+        })
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false);
+    }
+  
+    
+    setSelectedCategory();
+
+    
+
   };
 
   const addToCart = (service) => {
@@ -110,7 +219,7 @@ const ServicePage = () => {
   };
 
   const handleAllClick = async () => {
-    fetchData1();
+    fetchData();
     setSelectedCategory("All Services");
   };
 
@@ -118,32 +227,37 @@ const ServicePage = () => {
     <Box p={2}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <Box display="flex" alignItems="center">
-            <ToggleButtonGroup
-              value={selectedGender}
-              exclusive
-              onChange={(event, newGender) => setSelectedGender(newGender)}
-              aria-label="Gender Toggle"
-              style={{ flexShrink: 0 }}
-            >
-              <ToggleButton value="Men" aria-label="Men">
-                Men
-              </ToggleButton>
-              <ToggleButton value="Women" aria-label="Women">
-                Women
-              </ToggleButton>
-            </ToggleButtonGroup>
+          <ToggleButtonGroup
+            value={selectedGender}
+            exclusive
+            //  onChange={handleGenderChange}
+            aria-label="Gender Toggle"
+          >
 
-            <Box flexGrow={1} />
 
-            <Typography variant="h4" gutterBottom textAlign="center" style={{ flexGrow: 1 }}>
+            {
+              selectedGender?.Ser_Category?.map((item) => {
+                console.log(item);
+                return (
+                  <ToggleButton key={item.name} onClick={() => { handlegender(item) }} value={item.name} aria-label={item.name}>
+                    {item.name}
+                  </ToggleButton>
+                );
+              })
+            }
+
+            {/* <ToggleButton value="Men" aria-label="Men">
+              Men
+            </ToggleButton>
+            <ToggleButton value="Women" aria-label="Women">
+              Women
+            </ToggleButton> */}
+          </ToggleButtonGroup>
+          <Box display="flex" justifyContent="center" mt={0}>
+            <Typography variant="h4">
               {selectedCategory === "All" ? "All Services" : selectedCategory}
-            </Typography>
-
-            <Box flexGrow={1} />
-          </Box>
+            </Typography></Box>
         </Grid>
-
         <Grid item xs={12} md={3}>
           <Card >
             <CardContent>
@@ -168,8 +282,7 @@ const ServicePage = () => {
                   <ListItem
                     button
                     key={index}
-                    onClick={() => handleCategoryClick(category)}
-                  >
+                    onClick={() => handleclick(category)}                  >
                     <img
                       src={`./images/${category.image}`}
                       alt={category.name}
@@ -190,9 +303,8 @@ const ServicePage = () => {
 
         <Grid item xs={12} md={6}>
           {services?.Service?.map((service) => {
-
             return (
-              <Card key={service.id} sx={{ mb: 2, display: "flex", flexDirection: "row" , border: "2px solid #ddd" }}>
+              <Card key={service.id} sx={{ mb: 2, display: "flex", flexDirection: "row", border: "2px solid #ddd", height: 250 }}>
                 <CardContent
                   sx={{
                     flex: 1,
@@ -218,24 +330,32 @@ const ServicePage = () => {
                   </Typography>
                 </CardContent>
 
-                <CardContent sx={{ flex: 2 }}>
-                  <Typography variant="h6" sx={{ mb: 1 }}>
-                    {service.description}
-                  </Typography>
-                  <Typography variant="body1" sx={{ mb: 1 }}>
-                    ₹{service.price}
-                  </Typography>
-                  
-                   
-                    <Button
-                      variant="outlined"
-                      startIcon={<AddShoppingCartIcon />}
-                      sx={{ mt: 2 }}
-                      onClick={() => addToCart(service)}
-                    >
-                      Add
-                    </Button>
-              
+                <CardContent sx={{ flex: 2, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                  <div>
+                    <Typography variant="h9" sx={{ mb: 1 }}>
+                      {service.description}
+                    </Typography>
+                    <Typography variant="body1" paddingTop={4} sx={{ mb: 1 }}>
+                      Price: ₹{service.price}
+                    </Typography>
+                  </div>
+                  <Button
+                    variant="outlined"
+                    startIcon={<AddShoppingCartIcon />}
+                    sx={{
+                      mt: 2,
+                      transition: 'revert-layer',
+                      '&:hover': {
+                        backgroundColor: 'primary.main',
+                        color: 'white',
+                        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)',
+                        transform: 'scale(1.05)',
+                      },
+                    }}
+                    onClick={() => addToCart(service)}
+                  >
+                    Add
+                  </Button>
                 </CardContent>
               </Card>
             );

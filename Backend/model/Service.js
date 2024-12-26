@@ -1,6 +1,8 @@
 const  mongoose =require("mongoose");
 
 const Service_Category = require("./Service_Category");
+const Category = require("./Category");
+
 
 
 const Schema=mongoose.Schema;
@@ -14,6 +16,11 @@ const ServiceSchema= new Schema({
     Service_Category:{
         type:mongoose.Schema.Types.ObjectId,
         ref: 'Service_Category',
+        required: true,
+    },
+    Category_id:{
+      type:mongoose.Schema.Types.ObjectId,
+        ref: 'Category',
         required: true,
     },
     price:{

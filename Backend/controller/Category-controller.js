@@ -1,5 +1,6 @@
 const Category = require("../model/Category");
 const Service_Category=require("../model/Service_Category")
+const Service = require("../model/Service");
 
 
 const getCategory = async (req, res, next) => {
@@ -47,6 +48,22 @@ const getAllCategoryByid = async (req, res, next) => {
     }
     return res.status(200).json({ Ser_Category });
 };
+const getAllServiceByid = async (req, res, next) => {
+    let service;
+    let id = req.body.id;
+    let Ser_Category;
+    console.log(id)
+    try {
+        service = await Service.find();
+        console.log(service)
+         Ser_Category = service.filter((item) => item?.Category_id ==  id);
+    } 
+    catch (err) {
+        return next(err);
+    }
+   
+    return res.status(200).json({ Service : Ser_Category });
+};
 
 
 const CreateCategory = async (req, res, next) => {
@@ -74,3 +91,4 @@ exports.getCategory = getCategory;
 exports. getbyid =  getbyid;
 exports.getAllCategoryByid = getAllCategoryByid;
 exports.CreateCategory = CreateCategory;
+exports.getAllServiceByid=getAllServiceByid;
