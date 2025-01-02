@@ -14,6 +14,22 @@ const getAllItems = async (req, res, next) => {
     }
     return res.status(200).json({ item });
 };
+const getitemById = async (req, res, next) => {
+    let itemId = req.params.id;
+    let item;
+    try {
+        item = await items.findById(itemId);
+    } 
+    catch (err) {
+        return next(err);
+    }
+    if (!item) {
+        return res.status(500).json({ message: "Internal server error" });
+    }
+    return res.status(200).json({ item });
+
+}
+
 const getAllServiceByCatid = async (req, res, next) => {
     let Category;
     let id = req.body.id;
@@ -55,3 +71,4 @@ const createItem = async (req, res, next) => {
 exports.getAllItems = getAllItems;
 exports.createItem = createItem;
 exports.getAllServiceByCatid=getAllServiceByCatid;
+exports.getitemById=getitemById;

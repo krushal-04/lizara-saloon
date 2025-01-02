@@ -6,6 +6,7 @@ const router2 = require("./routes/book-routes");
 const router3 = require("./routes/Service_Category-routes");
 const router4 = require("./routes/Service-routes");
 const router5 = require("./routes/Category-routes");
+const admin = require("./routes/admin-route");
 const path = require('path');
 const cors = require("cors");
 const fs = require('fs'); // Import the fs module
@@ -31,3 +32,4 @@ app.use("/booking", router2);
 app.use("/Service_Cat", router3);
 app.use("/Services", router4);
 app.use("/Category", router5);
+app.use("/admin", admin);
