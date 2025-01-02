@@ -29,7 +29,7 @@ const ServicePage = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedGender, setSelectedGender] = useState("Men");
   const [loading, setLoading] = useState(true);
-  const [isHovered, setIsHovered] = useState({});
+
 
   useEffect(() => {
     setSelectedGender("Men")
@@ -43,8 +43,7 @@ const ServicePage = () => {
 
     let id = globalId;
     try {
-      const res3 = await
-        axios.post("http://localhost:5050/Category/getserviceid", {
+      await axios.post("http://localhost:5050/Category/getserviceid", {
           id: id
         }).then((response) => {
 
@@ -59,8 +58,7 @@ const ServicePage = () => {
     }
 
     try {
-      const res2 = await
-        axios.post("http://localhost:5050/Category/getCatid", {
+       await    axios.post("http://localhost:5050/Category/getCatid", {
           id: id
         }).then((response) => {
 
@@ -80,8 +78,7 @@ const ServicePage = () => {
 
     let id = "676909a949a0a01675dda2cd";
     try {
-      const res3 = await
-        axios.post("http://localhost:5050/Category/getserviceid", {
+       await axios.post("http://localhost:5050/Category/getserviceid", {
           id: id
         }).then((response) => {
 
@@ -96,8 +93,7 @@ const ServicePage = () => {
     }
 
     try {
-      const res2 = await
-        axios.post("http://localhost:5050/Category/getCatid", {
+       await axios.post("http://localhost:5050/Category/getCatid", {
           id: id
         }).then((response) => {
 
@@ -144,12 +140,9 @@ const ServicePage = () => {
     console.log(category);
     let id = category._id;
     try {
-      const res2 = await
-        axios.post("http://localhost:5050/Services/getCatid", {
+       await axios.post("http://localhost:5050/Services/getCatid", {
           catId: id
         }).then((response) => {
-
-
           setServices(response.data);
           console.log(response.data);
           setLoading(false);
@@ -259,29 +252,35 @@ const ServicePage = () => {
           <ToggleButtonGroup
             value={selectedGender}
             exclusive
+
             aria-label="Gender Toggle"
+            selectedGender={selectedGender}
+
           >
             {
               selectedGender?.Ser_Category?.map((item) => {
                 console.log(item);
                 return (
-                  <ToggleButton 
-                  key={item.name} 
-                  onClick={() => { handlegender(item) }} 
-                  value={item.name} 
-                  aria-label={item.name}
-                  sx={{
-                 
-                  
-                    "&:hover": {
-                      backgroundColor: "black",
-                      color: "white",
-                      transform: "scale(1.05)",
-                      boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                    },
-                    transition: "all 0.2s ease-in-out",
-                    
-                  }}>
+                  <ToggleButton
+
+                    key={item.name}
+                    onClick={() => { handlegender(item) }}
+                    value={item.name}
+                    aria-label={item.name}
+
+                    sx={{
+                      color: "black",
+
+
+                      "&:hover": {
+                        backgroundColor: "black",
+                        color: "white",
+                        transform: "scale(1.05)",
+                        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                      },
+                      transition: "all 0.2s ease-in-out",
+
+                    }}>
                     {item.name}
                   </ToggleButton>
                 );
@@ -298,7 +297,7 @@ const ServicePage = () => {
                 color: "primary.main",
                 textAlign: "center",
                 mt: 2,
-                }}>
+              }}>
               {selectedCategory === "All" ? "All Services" : selectedCategory}
             </Typography></Box>
         </Grid>
@@ -320,7 +319,7 @@ const ServicePage = () => {
                     transition: "all 0.2s ease-in-out",
                   }}>
                   <img
-                    src={`./images/profile1.jpg`}
+                    src={`./images/LS.png`}
                     alt="All Services"
                     style={{
                       width: 40,
@@ -336,7 +335,9 @@ const ServicePage = () => {
                     button
                     key={index}
                     onClick={() => handleclick(category)}
+
                     sx={{
+
                       "&:hover": {
                         backgroundColor: "black",
                         color: "white",
@@ -345,7 +346,7 @@ const ServicePage = () => {
                       },
                       transition: "all 0.2s ease-in-out",
                     }}
-                 >
+                  >
                     <img
                       src={`./images/${category.image}`}
                       alt={category.name}
@@ -363,11 +364,11 @@ const ServicePage = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} >
           {services?.Service?.map((service) => (
             <Card
               key={service._id}
-              sx={{ mb: 2, display: "flex", flexDirection: "row", border: "2px solid #ddd", height: 250 }}
+              sx={{ mb: 2, display: "flex", flexDirection: "row", border: "2px solid #ddd", height: 350 }}
             >
               <CardContent
                 sx={{
@@ -383,10 +384,10 @@ const ServicePage = () => {
                   src={`./images/${service.image}`}
                   alt={service.name}
                   style={{
-                    width: 100,
-                    height: 100,
+                    width: 150,
+                    height: 150,
                     borderRadius: "1%",
-                    marginBottom: 8,
+                    marginBottom: 10,
                   }}
                 />
                 <Typography variant="h6" textAlign="center">
@@ -507,6 +508,7 @@ const ServicePage = () => {
                       <span>Subtotal:</span>
                       <span>₹{totalPrice}</span>
                     </Typography>
+
                     <Typography variant="subtitle1" sx={{ display: 'flex', justifyContent: 'space-between', color: 'primary.main', fontWeight: 'bold' }}>
                       <span>Total:</span>
                       <span>₹{totalPrice}</span>
@@ -529,7 +531,7 @@ const ServicePage = () => {
                       transition: 'all 0.2s ease-in-out'
                     }}
                   >
-                    Proceed to Checkout
+                    Book Your Service
                   </Button>
                 </>
               ) : (

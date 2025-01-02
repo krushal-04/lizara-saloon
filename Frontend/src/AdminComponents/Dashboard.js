@@ -1,30 +1,49 @@
 import * as React from 'react';
-import { extendTheme, styled } from '@mui/material/styles';
+import { extendTheme } from '@mui/material/styles';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import GroupIcon from '@mui/icons-material/Group';
+import DesignServicesIcon from '@mui/icons-material/DesignServices';
 import BarChartIcon from '@mui/icons-material/BarChart';
-import DescriptionIcon from '@mui/icons-material/Description';
 import LayersIcon from '@mui/icons-material/Layers';
-import { AppProvider } from '@toolpad/core/AppProvider';
-import { DashboardLayout } from '@toolpad/core/DashboardLayout';
-import { PageContainer } from '@toolpad/core/PageContainer';
-import Grid from '@mui/material/Grid2';
+import { AppProvider  } from '@toolpad/core'; 
+import { DashboardLayout } from '@toolpad/core'; 
+import { PageContainer } from '@toolpad/core'; 
+import AppointmentList from './AppointmentList';
+import StaffSchedule from './StaffSchedule';
+import CustomerList from './CustomerList';
+import ServiceList from './ServiceList';
+import Analytics from './Analytics';
 
 const NAVIGATION = [
   {
     kind: 'header',
-    title: 'Main items',
+    title: 'Salon Management',
   },
   {
     segment: 'dashboard',
     title: 'Dashboard',
-    
     icon: <DashboardIcon />,
   },
   {
-    segment: 'orders',
-    title: 'Orders',
-    icon: <ShoppingCartIcon />,
+    segment: 'appointments',
+    title: 'Appointments',
+    icon: <CalendarTodayIcon />,
+  },
+  {
+    segment: 'staff',
+    title: 'Staff',
+    icon: <GroupIcon />,
+  },
+  {
+    segment: 'customers',
+    title: 'Customers',
+    icon: <GroupIcon />,
+  },
+  {
+    segment: 'services',
+    title: 'Services',
+    icon: <DesignServicesIcon />,
   },
   {
     kind: 'divider',
@@ -37,18 +56,6 @@ const NAVIGATION = [
     segment: 'reports',
     title: 'Reports',
     icon: <BarChartIcon />,
-    children: [
-      {
-        segment: 'sales',
-        title: 'Sales',
-        icon: <DescriptionIcon />,
-      },
-      {
-        segment: 'traffic',
-        title: 'Traffic',
-        icon: <DescriptionIcon />,
-      },
-    ],
   },
   {
     segment: 'integrations',
@@ -57,98 +64,90 @@ const NAVIGATION = [
   },
 ];
 
-const demoTheme = extendTheme({
-  colorSchemes: { light: true, dark: true },
-  colorSchemeSelector: 'class',
+// Theme configuration
+const salonTheme = extendTheme({
+
+  palette: {
+    primary: {
+      main: '#FF6F61', // Salon-friendly pinkish theme
+    },
+    secondary: {
+      main: '#4CAF50', // Accent color
+    },
+  },
+  typography: {
+    fontFamily: 'Roboto, Arial, sans-serif',
+  },
   breakpoints: {
     values: {
       xs: 0,
       sm: 600,
-      md: 600,
-      lg: 1200,
-      xl: 1536,
+      md: 960,
+      lg: 1280,
+      xl: 1920,
     },
   },
 });
 
-function useDemoRouter(initialPath) {
+// Custom router hook
+function useSalonRouter(initialPath) {
   const [pathname, setPathname] = React.useState(initialPath);
 
-  const router = React.useMemo(() => {
-    return {
+  const router = React.useMemo(
+    () => ({
       pathname,
       searchParams: new URLSearchParams(),
       navigate: (path) => setPathname(String(path)),
-    };
-  }, [pathname]);
+    }),
+    [pathname]
+  );
 
   return router;
 }
 
-const Skeleton = styled('div')(({ theme, height }) => ({
-  backgroundColor: theme.palette.action.hover,
-  borderRadius: theme.shape.borderRadius,
-  height,
-  content: '" "',
-}));
-
-export default function Dashboard(props) {
+export default function SalonAdminPanel(props) {
   const { window } = props;
+  const router = useSalonRouter('/dashboard');
+  const salonWindow = window ? window() : undefined;
 
-  const router = useDemoRouter('/dashboard');
-
-  // Remove this const when copying and pasting into your project.
-  const demoWindow = window ? window() : undefined;
+  const renderContent = () => {
+    switch (router.pathname) {
+      case '/dashboard':
+        return <Analytics />;
+      case '/appointments':
+        return <AppointmentList />;
+      case '/staff':
+        return <StaffSchedule />;
+      case '/customers':
+        return <CustomerList />;
+      case '/services':
+        return <ServiceList />;
+      default:
+        return <div style={{ textAlign: 'center', padding: '20px' }}>Page not found</div>;
+    }
+  };
 
   return (
     <AppProvider
-      navigation={NAVIGATION}
-      router={router}
-      theme={demoTheme}
-      window={demoWindow}
-    >
+   
+    navigation={NAVIGATION}
+    branding={{
+      
+      logo: <img src="../images/Logo1.png" alt="MUI logo" 
+      sx={{ width: 90, height: 90 }}
+      />,
+      title: 'Lizara Salon',
+      homeUrl: '/toolpad/core/introduction',
+    }}
+    router={router}
+    theme={salonTheme}
+    window={salonWindow}
+  >
       <DashboardLayout>
         <PageContainer>
-          <Grid container spacing={1}>
-            <Grid size={5} />
-            <Grid size={12}>
-              <h1>hello</h1>
-              <Skeleton height={14} />
-            </Grid>
-            <Grid size={12}>
-              <h1>hi</h1>
-              <Skeleton height={14} />
-            </Grid>
-            <Grid size={4}>
-              <Skeleton height={100} />
-            </Grid>
-            <Grid size={8}>
-              <Skeleton height={100} />
-            </Grid>
-
-            <Grid size={12}>
-              <Skeleton height={150} />
-            </Grid>
-            <Grid size={12}>
-              <Skeleton height={14} />
-            </Grid>
-
-            <Grid size={3}>
-              <Skeleton height={100} />
-            </Grid>
-            <Grid size={3}>
-              <Skeleton height={100} />
-            </Grid>
-            <Grid size={3}>
-              <Skeleton height={100} />
-            </Grid>
-            <Grid size={3}>
-              <Skeleton height={100} />
-            </Grid>
-          </Grid>
+          {renderContent()}
         </PageContainer>
       </DashboardLayout>
     </AppProvider>
-      
   );
 }
