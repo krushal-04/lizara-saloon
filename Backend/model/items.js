@@ -18,6 +18,12 @@ const ItemSchema= new Schema({
         required: true,
         
     },
+    Detail:{
+        type:String,
+        required: true,
+        
+    },
+
     desc:{
         type:String,
         required: true,

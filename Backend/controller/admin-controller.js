@@ -16,11 +16,11 @@ const getCategory = async (req, res, next) => {
 };
 const getcreate = async (req, res, next) => {
     console.log(req.body);
-    const {name,password} = req.body;
+    const {username,password} = req.body;
 
     
 
-    const admin1 = new admin({ name,password});
+    const admin1 = new admin({ username,password});
 
     try {
         await admin1.save();
