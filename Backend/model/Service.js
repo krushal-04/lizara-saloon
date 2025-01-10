@@ -1,7 +1,7 @@
 const  mongoose =require("mongoose");
 
-const Service_Category = require("./Service_Category");
-const Category = require("./Category");
+const Service_Category=require('./Service_Category')
+const Category=require('./Category')
 
 
 
@@ -14,15 +14,17 @@ const ServiceSchema= new Schema({
     },
     
     Service_Category:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref: 'Service_Category',
-        required: true,
+      type:Schema.Types.ObjectId,
+      ref:Service_Category,
+      required:true
+     
     },
     Category_id:{
-      type:mongoose.Schema.Types.ObjectId,
-        ref: 'Category',
-        required: true,
-    },
+      type:Schema.Types.ObjectId,
+      ref:Category,
+      required:true
+    
+  },
     price:{
         type:Number,
         required: true,

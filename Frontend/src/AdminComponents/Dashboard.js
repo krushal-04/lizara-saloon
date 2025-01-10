@@ -6,9 +6,9 @@ import GroupIcon from '@mui/icons-material/Group';
 import DesignServicesIcon from '@mui/icons-material/DesignServices';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
-import { AppProvider  } from '@toolpad/core'; 
-import { DashboardLayout } from '@toolpad/core'; 
-import { PageContainer } from '@toolpad/core'; 
+import { AppProvider } from '@toolpad/core';
+import { DashboardLayout } from '@toolpad/core';
+import { PageContainer } from '@toolpad/core';
 import AppointmentList from './AppointmentList';
 import StaffSchedule from './StaffSchedule';
 import CustomerList from './CustomerList';
@@ -66,7 +66,6 @@ const NAVIGATION = [
 
 // Theme configuration
 const salonTheme = extendTheme({
-
   palette: {
     primary: {
       main: '#FF6F61', // Salon-friendly pinkish theme
@@ -107,10 +106,14 @@ function useSalonRouter(initialPath) {
 
 export default function SalonAdminPanel(props) {
   const { window } = props;
-  const router = useSalonRouter('/dashboard');
+  const router = useSalonRouter('/Dashboard');
   const salonWindow = window ? window() : undefined;
 
+  
+
   const renderContent = () => {
+    
+
     switch (router.pathname) {
       case '/dashboard':
         return <Analytics />;
@@ -129,20 +132,16 @@ export default function SalonAdminPanel(props) {
 
   return (
     <AppProvider
-   
-    navigation={NAVIGATION}
-    branding={{
-      
-      logo: <img src="../images/Logo1.png" alt="MUI logo" 
-      sx={{ width: 90, height: 90 }}
-      />,
-      title: 'Lizara Salon',
-      homeUrl: '/toolpad/core/introduction',
-    }}
-    router={router}
-    theme={salonTheme}
-    window={salonWindow}
-  >
+      navigation={NAVIGATION}
+      branding={{
+        logo: <img src="../images/Logo1.png" alt="MUI logo" style={{ width: 90, height: 90 }} />,
+        title: 'Lizara Salon',
+        homeUrl: '/toolpad/core/introduction',
+      }}
+      router={router}
+      theme={salonTheme}
+      window={salonWindow}
+    >
       <DashboardLayout>
         <PageContainer>
           {renderContent()}

@@ -11,6 +11,8 @@ import Profile from "./components/Profile";
 import Dashboard from "./AdminComponents/Dashboard";
 import AddServices from "./AdminComponents/AddService";
 import Loginuser from "./components/LoginUser";
+import ServiceDetail from "./AdminComponents/ServiceDetail";
+
 
 
 function App() {
@@ -29,8 +31,10 @@ function App() {
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminHome />} />
             <Route path="dashboard" element={<Dashboard />} />
+            
             <Route path="addservice" element={<AddServices />} />
           </Route>
+            <Route path="/services/:id" element={<ServiceDetail />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
