@@ -46,7 +46,7 @@ const getAllCategoryByid = async (req, res, next) => {
     if (!Category) {
         return res.status(500).json({ message: "Internal server error" });
     }
-    return res.status(200).json({ Ser_Category: Ser_Category,id:id });
+    return res.status(200).json({ Ser_Category: Ser_Category, id:id });
 };
 const getAllServiceByid = async (req, res, next) => {
     let service;

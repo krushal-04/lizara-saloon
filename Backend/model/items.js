@@ -21,7 +21,12 @@ const ItemSchema= new Schema({
     desc:{
         type:String,
         required: true,
-        
+    
+    },
+    Detail:{
+        type:String,
+        required: true,
+    
     },
     image:{
         type:String,

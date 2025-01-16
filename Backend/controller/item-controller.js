@@ -49,11 +49,11 @@ const getAllServiceByCatid = async (req, res, next) => {
 };
 const createItem = async (req, res, next) => {
     console.log(req.body);
-    const {image,name, price , is_active , desc, Category_name ,Category_id,rating} = req.body;
+    const {image,name, price , is_active , desc,Detail, Category_name ,Category_id,rating} = req.body;
 
     
 
-    const Items1 = new items({ image,name, price , is_active , desc, Category_name,Category_id,rating });
+    const Items1 = new items({ image,name, price , is_active , desc,Detail, Category_name,Category_id,rating });
 
     try {
         await Items1.save();

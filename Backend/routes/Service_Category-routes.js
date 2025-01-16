@@ -7,7 +7,7 @@ const router=express.Router();
 router.get("/",getAllSerCategory);
 router.post("/",getAllSerCategorybyid);
 router.post("/getCatid",getAllServiceByCatid);
-router.post("/Category",createCategory);
+router.post("/create",createCategory);
 
 
 

@@ -1,6 +1,6 @@
 const  mongoose =require("mongoose");
 const Item=require("./items")
-const User=require("./user")
+// const User=require("./user")
 
 
 const Schema=mongoose.Schema;
@@ -23,11 +23,11 @@ const bookingSchema= new Schema({
         required: true,
         
     },
-    user_id:{
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-    },
+    // user_id:{
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'User',
+    //     required: true,
+    // },
     item_id:{
     type: Schema.Types.ObjectId,
     ref: 'Item',

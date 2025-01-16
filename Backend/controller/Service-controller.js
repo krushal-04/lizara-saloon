@@ -4,7 +4,14 @@ const Services= require("../model/Service");
 const getAllService = async (req, res, next) => {
     let Service;
     try {
-        Service = await Services.find();
+        Service = await Services.find().populate({
+            path: 'Service_Category',
+            // select: 'name description' 
+        })
+        .populate({
+            path: 'Category_id',
+            // select: 'name' 
+        });
     } 
     catch (err) {
         return next(err);
@@ -35,6 +42,31 @@ const getAllServiceByCatid = async (req, res, next) => {
     }
     return res.status(200).json({ Service });
 };
+const getserviceById = async (req, res, next) => {
+    let itemId = req.params.id;
+    let item;
+    try {
+        item = await Services.findById(itemId)
+            .populate({
+                path: 'Service_Category',
+                // select: 'name description' 
+            })
+            .populate({
+                path: 'Category_id',
+                // select: 'name' 
+            });
+    } catch (err) {
+        console.error('Error occurred while fetching service:', err);
+        return next(err); // Pass error to error handling middleware
+    }
+
+    if (!item) {
+        return res.status(404).json({ message: "Service not found" });
+    }
+
+    return res.status(200).json({ item });
+};
+
 
 const createService = async (req, res, next) => {
     console.log(req.body);
@@ -60,3 +92,4 @@ const createService = async (req, res, next) => {
 exports.getAllService = getAllService;
 exports.createService = createService;
 exports .getAllServiceByCatid = getAllServiceByCatid;
+exports.getserviceById=getserviceById;

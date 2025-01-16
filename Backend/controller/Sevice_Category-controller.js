@@ -35,7 +35,7 @@ const getAllServiceByCatid = async (req, res, next) => {
     let filteredCategory
     console.log(id)
     try {
-        Category = await items.find();
+        Category = await Service_Category.find();
          filteredCategory = Category.filter((item) => item?.Category_id ==  id);
     } 
     catch (err) {
@@ -57,7 +57,7 @@ const createCategory = async (req, res, next) => {
 
     try {
         await Category1.save();
-        console.log("Items created successfully");
+        console.log("Service Category created successfully");
     } catch (err) {
         return next(err);
     }

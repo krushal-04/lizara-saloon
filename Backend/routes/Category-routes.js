@@ -8,7 +8,7 @@ router.get("/",getCategory);
 router.post("/",getbyid);
 router.post("/getCatid",getAllCategoryByid);
 router.post("/getserviceid",getAllServiceByid);
-router.post("/Cat",CreateCategory);
+router.post("/create",CreateCategory);
 
 
 
